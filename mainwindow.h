@@ -91,7 +91,7 @@ private:
     QTextBrowser *commandExamplesBrowser; // Command examples browser
     MyTextEditor *commandTextEdit;        // Declare the command widget as a member variable
     QTabWidget *tabWidget;                // Widget for different views
-    QStackedWidget *tab2D;                // Widget for Graphic view
+    QStackedWidget *tabGraphic;                // Widget for Graphic view
     QStackedWidget *tabText;              // Widget for Text view
     QProgressBar *healthBar;
     QProgressBar *energyBar;
@@ -99,7 +99,7 @@ private:
     std::unique_ptr <LevelController> levelModel = nullptr;
     MySlider *difficultySlider;
     std::unique_ptr <GameModel> gameModel = nullptr;
-    std::unique_ptr <View2D> view2D = nullptr;
+    std::unique_ptr <ViewGraphic> viewGraphic = nullptr;
     std::unique_ptr <ViewText> viewText = nullptr;
     std::unique_ptr <ProtagonistController> pController = nullptr;
     QPushButton *autoplayBtn;

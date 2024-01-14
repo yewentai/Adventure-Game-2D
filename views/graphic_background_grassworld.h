@@ -11,38 +11,38 @@
 #include "graphic_background_road.h"
 #include "graphic_background_greengrass.h"
 
-class GrassworldView2D {
+class GrassworldViewGraphic {
 
 public:
-    GrassworldView2D(const std::vector <std::unique_ptr<Tile>> &tiles, int size, QGraphicsScene *scene)
+    GrassworldViewGraphic(const std::vector <std::unique_ptr<Tile>> &tiles, int size, QGraphicsScene *scene)
             : size(size) {
         for (const auto &t: tiles) {
             if (t->getValue() == std::numeric_limits<float>::infinity()) {
-                BrickView2D *brickView = new BrickView2D(size, t->getXPos(), t->getYPos());
+                BrickViewGraphic *brickView = new BrickViewGraphic(size, t->getXPos(), t->getYPos());
                 scene->addItem(brickView);
             } else if (t->getValue() > 0.65f) {
-                RoadView2D *roadView = new RoadView2D(size, t->getXPos(), t->getYPos());
+                RoadViewGraphic *roadView = new RoadViewGraphic(size, t->getXPos(), t->getYPos());
                 scene->addItem(roadView);
             } else if (t->getValue() > 0.6f) {
-                GrassflowerView2D *grassflowerView = new GrassflowerView2D(size, t->getXPos(), t->getYPos());
+                GrassflowerViewGraphic *grassflowerView = new GrassflowerViewGraphic(size, t->getXPos(), t->getYPos());
                 scene->addItem(grassflowerView);
             } else if (t->getValue() > 0.3f) {
-                YellowgrassView2D *yellowgrassView = new YellowgrassView2D(size, t->getXPos(), t->getYPos());
+                YellowgrassViewGraphic *yellowgrassView = new YellowgrassViewGraphic(size, t->getXPos(), t->getYPos());
                 scene->addItem(yellowgrassView);
             } else if (t->getValue() > 0.2f) {
-                GreengrassView2D *greengrassView = new GreengrassView2D(size, t->getXPos(), t->getYPos());
+                GreengrassViewGraphic *greengrassView = new GreengrassViewGraphic(size, t->getXPos(), t->getYPos());
                 scene->addItem(greengrassView);
             } else if (t->getValue() > 0.12f) {
-                LightgrassView2D *lightgrassView = new LightgrassView2D(size, t->getXPos(), t->getYPos());
+                LightgrassViewGraphic *lightgrassView = new LightgrassViewGraphic(size, t->getXPos(), t->getYPos());
                 scene->addItem(lightgrassView);
             } else {
-                PoolView2D *poolView = new PoolView2D(size, t->getXPos(), t->getYPos());
+                PoolViewGraphic *poolView = new PoolViewGraphic(size, t->getXPos(), t->getYPos());
                 scene->addItem(poolView);
             }
         }
     };
 
-    ~GrassworldView2D() {};
+    ~GrassworldViewGraphic() {};
 
 private:
     int size;

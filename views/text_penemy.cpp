@@ -1,7 +1,7 @@
 #include "text_penemy.h"
 
 PEnemyViewText::PEnemyViewText(int size, int xPos, int yPos, int cols, int rows)
-        : EnemyView2D(size, xPos, yPos), viewPoison(new), cols(cols), rows(rows) {
+        : EnemyViewGraphic(size, xPos, yPos), viewPoison(new), cols(cols), rows(rows) {
     this->viewAlive = new QPixmap(QString(":/src/tile_images/p_alive.png"));
     this->viewDead = new QPixmap(QString(":/src/tile_images/p_dead.png"));
 

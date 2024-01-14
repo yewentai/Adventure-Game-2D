@@ -5,13 +5,13 @@
 #include <QImage>
 #include "views/graphic_tile.h"
 
-class HealthPackView2D : public TileView2D {
+class HealthPackViewGraphic : public TileViewGraphic {
     Q_OBJECT
 
 public:
-    // Constructor for the HealthPackView2D class
-    HealthPackView2D(int size, int xPos, int yPos)
-            : TileView2D(size, xPos, yPos) {
+    // Constructor for the HealthPackViewGraphic class
+    HealthPackViewGraphic(int size, int xPos, int yPos)
+            : TileViewGraphic(size, xPos, yPos) {
         // Set the pixmap and Z-value for the health pack view
         QPixmap resizedPixmap = (new QPixmap(QString(":/src/tile_images/heal.png")))->scaled(size, size);
         this->setPixmap(resizedPixmap);
@@ -26,7 +26,7 @@ public
 };
 
 // Implementation of the handlePicked slot
-inline void HealthPackView2D::handlePicked() {
+inline void HealthPackViewGraphic::handlePicked() {
     this->deleteLater(); // Delete the health pack view after it's picked up
 }
 

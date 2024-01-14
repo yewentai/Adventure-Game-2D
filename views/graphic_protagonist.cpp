@@ -1,14 +1,14 @@
 #include "graphic_protagonist.h"
 
-ProtagonistView2D::ProtagonistView2D(int size, int xPos, int yPos)
-        : TileView2D(size, xPos, yPos),
+ProtagonistViewGraphic::ProtagonistViewGraphic(int size, int xPos, int yPos)
+        : TileViewGraphic(size, xPos, yPos),
           viewAlive(new QPixmap(QString(":/src/tile_images/player1.png"))) {
     // Set up the protagonist view
     this->setPixmap(viewAlive->scaled(size, size));
     this->setZValue(5);
 
     // Create the poisoned view
-    viewPoisoned = new PoisonView2D(size, 0, 0, this);
+    viewPoisoned = new PoisonViewGraphic(size, 0, 0, this);
     viewPoisoned->setPos(0, -1 * size);
 
     // Initialize poisoned animation for xScale
@@ -30,11 +30,11 @@ ProtagonistView2D::ProtagonistView2D(int size, int xPos, int yPos)
     poisonedAnimationY->setLoopCount(-1);
 }
 
-void ProtagonistView2D::handlePosChanged(int x, int y) {
+void ProtagonistViewGraphic::handlePosChanged(int x, int y) {
     this->setPos(x * size, y * size);
 }
 
-void ProtagonistView2D::handlePoioned() {
+void ProtagonistViewGraphic::handlePoioned() {
     viewPoisoned->setParentItem(this);
     viewPoisoned->setVisible(true);
     // Start the animations
@@ -42,7 +42,7 @@ void ProtagonistView2D::handlePoioned() {
     poisonedAnimationY->start();
 }
 
-void ProtagonistView2D::handleRecovered() {
+void ProtagonistViewGraphic::handleRecovered() {
     // Stop the animations
     poisonedAnimationX->stop();
     poisonedAnimationY->stop();

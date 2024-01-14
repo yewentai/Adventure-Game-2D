@@ -1,7 +1,7 @@
 #include "graphic_penemy.h"
 
-PEnemyView2D::PEnemyView2D(int size, int xPos, int yPos, int cols, int rows)
-        : EnemyView2D(size, xPos, yPos), viewPoison(new QPixmap(":/src/tile_images/poison.png")), cols(cols),
+PEnemyViewGraphic::PEnemyViewGraphic(int size, int xPos, int yPos, int cols, int rows)
+        : EnemyViewGraphic(size, xPos, yPos), viewPoison(new QPixmap(":/src/tile_images/poison.png")), cols(cols),
           rows(rows) {
     this->viewAlive = new QPixmap(QString(":/src/tile_images/p_alive.png"));
     this->viewDead = new QPixmap(QString(":/src/tile_images/p_dead.png"));
@@ -21,7 +21,7 @@ int max(int a, int b) {
     return a > b ? a : b;
 }
 
-void PEnemyView2D::handlePoisonUpdated(int range, float poisonLevel) {
+void PEnemyViewGraphic::handlePoisonUpdated(int range, float poisonLevel) {
     // timer(animation) start or keep
     // poison color change according to value
 
@@ -82,11 +82,11 @@ void PEnemyView2D::handlePoisonUpdated(int range, float poisonLevel) {
     }
 }
 
-QGraphicsItemGroup *PEnemyView2D::getPoisons() const {
+QGraphicsItemGroup *PEnemyViewGraphic::getPoisons() const {
     return poisons;
 }
 
-void PEnemyView2D::clearPoisons() {
+void PEnemyViewGraphic::clearPoisons() {
     if (poisons) {
         QList < QGraphicsItem * > itemsInGroup = poisons->childItems();
 

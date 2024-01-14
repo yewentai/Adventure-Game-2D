@@ -5,20 +5,20 @@
 #include <QImage>
 #include "views/graphic_tile.h"
 
-class EnemyView2D : public TileView2D {
+class EnemyViewGraphic : public TileViewGraphic {
     Q_OBJECT
 
 public:
-    // Constructor for the EnemyView2D class
-    EnemyView2D(int size, int xPos, int yPos) : TileView2D(size, xPos, yPos) {
+    // Constructor for the EnemyViewGraphic class
+    EnemyViewGraphic(int size, int xPos, int yPos) : TileViewGraphic(size, xPos, yPos) {
         this->viewAlive = new QPixmap(QString(":/src/tile_images/enemy.png"));
         this->viewDead = new QPixmap(QString(":/src/tile_images/enemy_dead.png"));
         this->setPixmap(viewAlive->scaled(size, size));
         this->setZValue(2);
     };
 
-    // Destructor for the EnemyView2D class
-    ~EnemyView2D() {
+    // Destructor for the EnemyViewGraphic class
+    ~EnemyViewGraphic() {
         delete viewAlive;
         delete viewDead;
     };

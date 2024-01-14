@@ -5,12 +5,12 @@
 #include <QImage>
 #include "views/graphic_tile.h"
 
-class GrassflowerView2D : public TileView2D {
+class GrassflowerViewGraphic : public TileViewGraphic {
     Q_OBJECT
 
 public:
-    GrassflowerView2D(int size, int xPos, int yPos)
-            : TileView2D(size, xPos, yPos) {
+    GrassflowerViewGraphic(int size, int xPos, int yPos)
+            : TileViewGraphic(size, xPos, yPos) {
         QPixmap resizedPixmap = (new QPixmap(QString(":/src/tile_images/grassflower.png")))->scaled(size, size);
         this->setPixmap(resizedPixmap);
         this->setZValue(1);

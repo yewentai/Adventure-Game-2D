@@ -23,16 +23,16 @@
 #include "views/graphic_background_grassworld.h"
 #include "controllers/protagonist_control.h"
 
-// Define a class called View2D that inherits from QGraphicsView
-class View2D : public QGraphicsView {
+// Define a class called ViewGraphic that inherits from QGraphicsView
+class ViewGraphic : public QGraphicsView {
     Q_OBJECT
 
 public:
-    // Constructor for the View2D class, takes a GameModel pointer and an integer size as parameters
-    View2D(GameModel *model, int size, int bgSkin = 1);
+    // Constructor for the ViewGraphic class, takes a GameModel pointer and an integer size as parameters
+    ViewGraphic(GameModel *model, int size, int bgSkin = 1);
 
     QGraphicsScene *scene; // Pointer to the QGraphicsScene
-    virtual ~View2D() {};   // Virtual destructor
+    virtual ~ViewGraphic() {};   // Virtual destructor
 
     // Zoom in or out by changing the size of tiles
     int getTileSize() const;
@@ -46,7 +46,7 @@ public:
 private:
     int size{1};                                           // Size of tiles
     float zoomFactor{1.0f};                                // Zoom factor
-    QMap<QPair < int, int>, MarkedTileView2D *>
+    QMap<QPair < int, int>, MarkedTileViewGraphic *>
     markedTiles; // Map to store marked tile instances
     // Override keyPressEvent to handle key events
     void keyPressEvent(QKeyEvent *event) override;

@@ -5,12 +5,12 @@
 #include <QImage>
 #include "views/graphic_tile.h"
 
-class YellowgrassView2D : public TileView2D {
+class YellowgrassViewGraphic : public TileViewGraphic {
     Q_OBJECT
 
 public:
-    YellowgrassView2D(int size, int xPos, int yPos)
-            : TileView2D(size, xPos, yPos) {
+    YellowgrassViewGraphic(int size, int xPos, int yPos)
+            : TileViewGraphic(size, xPos, yPos) {
         QPixmap resizedPixmap = (new QPixmap(QString(":/src/tile_images/yellowgrass.png")))->scaled(size, size);
         this->setPixmap(resizedPixmap);
         this->setZValue(1);

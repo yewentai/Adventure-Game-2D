@@ -1,6 +1,6 @@
 #include "graphic.h"
 
-View2D::View2D(GameModel *model, int size, int bgSkin) : size(size) {
+ViewGraphic::ViewGraphic(GameModel *model, int size, int bgSkin) : size(size) {
     // Initialize the scene and add it to the view
     scene = new QGraphicsScene();
     this->setScene(scene);
@@ -17,13 +17,13 @@ View2D::View2D(GameModel *model, int size, int bgSkin) : size(size) {
 
     // Construct a background view for the model and connect
     if (bgSkin == 1) {
-        new GrassworldView2D(tiles, size, scene);
+        new GrassworldViewGraphic(tiles, size, scene);
     } else {
-        new GrassworldView2D(tiles, size, scene);
+        new GrassworldViewGraphic(tiles, size, scene);
     }
 
     // Construct controllers for the model and connect
-    ProtagonistView2D *pView = new ProtagonistView2D(size, protag->getXPos(), protag->getYPos());
+    ProtagonistViewGraphic *pView = new ProtagonistViewGraphic(size, protag->getXPos(), protag->getYPos());
     scene->addItem(pView);
     connect(protag.get(), SIGNAL(posChanged(int, int)), pView, SLOT(handlePosChanged(int, int)));
     connect(protag.get(), SIGNAL(protagPoisoned()), pView, SLOT(handlePoioned()));
@@ -32,7 +32,7 @@ View2D::View2D(GameModel *model, int size, int bgSkin) : size(size) {
     for (const auto &e: enemies) {
         // Generate the views of tiles according to the tile type
         if (dynamic_cast<PEnemyModel *>(e.get())) {
-            PEnemyView2D *pView = new PEnemyView2D(size, e->getXPos(), e->getYPos(), model->getCols(),
+            PEnemyViewGraphic *pView = new PEnemyViewGraphic(size, e->getXPos(), e->getYPos(), model->getCols(),
                                                    model->getRows());
             scene->addItem(pView);
             scene->addItem(pView->getPoisons());
@@ -40,31 +40,31 @@ View2D::View2D(GameModel *model, int size, int bgSkin) : size(size) {
             connect(e.get(), SIGNAL(dead()), pView, SLOT(handleDead()));
             connect(e.get(), SIGNAL(poisonUpdated(int, float)), pView, SLOT(handlePoisonUpdated(int, float)));
         } else if (dynamic_cast<XEnemy *>(e.get())) {
-            XEnemyView2D *xView = new XEnemyView2D(size, e->getXPos(), e->getYPos());
+            XEnemyViewGraphic *xView = new XEnemyViewGraphic(size, e->getXPos(), e->getYPos());
             scene->addItem(xView);
             connect(e.get(), SIGNAL(dead()), xView, SLOT(handleDead()));
         } else {
-            EnemyView2D *eView = new EnemyView2D(size, e->getXPos(), e->getYPos());
+            EnemyViewGraphic *eView = new EnemyViewGraphic(size, e->getXPos(), e->getYPos());
             scene->addItem(eView);
             connect(e.get(), SIGNAL(dead()), eView, SLOT(handleDead()));
         }
     }
     for (const auto &h: hps) {
-        HealthPackView2D *hView = new HealthPackView2D(size, h->getXPos(), h->getYPos());
+        HealthPackViewGraphic *hView = new HealthPackViewGraphic(size, h->getXPos(), h->getYPos());
         scene->addItem(hView);
         connect(h.get(), SIGNAL(hpPicked()), hView, SLOT(handlePicked()));
     }
     for (const auto &g: model->getGates()) {
-        GateView2D *gView = new GateView2D(size, g->getXPos(), g->getYPos());
+        GateViewGraphic *gView = new GateViewGraphic(size, g->getXPos(), g->getYPos());
         scene->addItem(gView);
     }
 }
 
-QGraphicsScene *View2D::getScene() const {
+QGraphicsScene *ViewGraphic::getScene() const {
     return scene;
 }
 
-void View2D::mousePressEvent(QMouseEvent *event) {
+void ViewGraphic::mousePressEvent(QMouseEvent *event) {
     int x = event->x() / size; // Convert mouse coordinates to tile coordinates
     int y = event->y() / size;
     qDebug() << "Emitting coordinates x and y: " << x << " " << y;
@@ -72,16 +72,16 @@ void View2D::mousePressEvent(QMouseEvent *event) {
     QGraphicsView::mousePressEvent(event);
 }
 
-int View2D::getTileSize() const {
+int ViewGraphic::getTileSize() const {
     return size;
 }
 
-void View2D::keyPressEvent(QKeyEvent *event) {
+void ViewGraphic::keyPressEvent(QKeyEvent *event) {
     // Emit a signal with key information
     emit keyPressed(event->key());
 }
 
-void View2D::wheelEvent(QWheelEvent *event) {
+void ViewGraphic::wheelEvent(QWheelEvent *event) {
     // Zoom
     const ViewportAnchor anchor = transformationAnchor();
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
@@ -102,12 +102,12 @@ void View2D::wheelEvent(QWheelEvent *event) {
     setTransformationAnchor(anchor);
 }
 
-void View2D::cleanupMarkedTiles() {
+void ViewGraphic::cleanupMarkedTiles() {
     QList < QGraphicsItem * > itemsToRemove;
 
     for (QGraphicsItem *item: scene->items()) {
-        // Check if the item is a MarkedTileView2D
-        MarkedTileView2D *markedTile = dynamic_cast<MarkedTileView2D *>(item);
+        // Check if the item is a MarkedTileViewGraphic
+        MarkedTileViewGraphic *markedTile = dynamic_cast<MarkedTileViewGraphic *>(item);
         if (markedTile) {
             // Add to the list for removal
             itemsToRemove.append(item);
@@ -122,13 +122,13 @@ void View2D::cleanupMarkedTiles() {
 
 }
 
-void View2D::markVisited(int x, int y) {
+void ViewGraphic::markVisited(int x, int y) {
     QPair<int, int> tilePos(x, y);
 
     // Check if this tile is already marked
     if (!markedTiles.contains(tilePos)) {
         // Create a new marked tile view
-        MarkedTileView2D *markedView = new MarkedTileView2D(size, x, y);
+        MarkedTileViewGraphic *markedView = new MarkedTileViewGraphic(size, x, y);
         scene->addItem(markedView); // Assuming 'scene' is your QGraphicsScene instance
 
         // Store the reference to the marked tile

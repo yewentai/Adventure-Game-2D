@@ -19,7 +19,7 @@
  *    Node should derive from Tile, so you can call getValue()
  * U is a position, passed a pointer, something which derives from Tile (or a Tile)
  * The comparator is used by the priority_queue to put the element with the lowest total cost in front
- * since Nodes is a 1D vector representing a 2D grid, we need know the width of this grid
+ * since Nodes is a 1D vector representing a Graphic grid, we need know the width of this grid
  * heurWeight is the heuristic weight paramters defined by the A* algorithm
  *
  * The function returns a list of moves (0 to 7) using following encoding. The central point is your current position

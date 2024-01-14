@@ -9,11 +9,11 @@
 #include <QPropertyAnimation>
 #include "views/graphic_enemy.h"
 
-class PEnemyView2D : public EnemyView2D {
+class PEnemyViewGraphic : public EnemyViewGraphic {
     Q_OBJECT
 
 public:
-    PEnemyView2D(int size, int xPos, int yPos, int cols, int rows);
+    PEnemyViewGraphic(int size, int xPos, int yPos, int cols, int rows);
 
     QGraphicsItemGroup *getPoisons() const;
 

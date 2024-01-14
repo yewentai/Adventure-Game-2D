@@ -3,12 +3,12 @@
 
 #include <QGraphicsPixmapItem>
 
-class TileView2D : public QObject, public QGraphicsPixmapItem {
+class TileViewGraphic : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 
 public:
-    // Constructor for the TileView2D class
-    TileView2D(int size, int xPos, int yPos)
+    // Constructor for the TileViewGraphic class
+    TileViewGraphic(int size, int xPos, int yPos)
             : size(size),
               xPos(xPos),
               yPos(yPos) {

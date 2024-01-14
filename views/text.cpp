@@ -105,7 +105,7 @@ void ViewText::cleanupMarkedTiles() {
     QList < QGraphicsItem * > itemsToRemove;
 
     for (QGraphicsItem *item: scene->items()) {
-        // Check if the item is a MarkedTileView2D
+        // Check if the item is a MarkedTileViewGraphic
         TextMarkedTile *markedTile = dynamic_cast<TextMarkedTile *>(item);
         if (markedTile) {
             // Add to the list for removal

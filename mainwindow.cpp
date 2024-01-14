@@ -22,10 +22,10 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout->addWidget(tabWidget);
 
     // Tab pages
-    tab2D = new QStackedWidget();
-    tab2D->setWindowTitle("Graphic");
-    tab2D->setGeometry(0, 0, 542, 542);
-    tabWidget->addTab(tab2D, "Graphic");
+    tabGraphic = new QStackedWidget();
+    tabGraphic->setWindowTitle("Graphic");
+    tabGraphic->setGeometry(0, 0, 542, 542);
+    tabWidget->addTab(tabGraphic, "Graphic");
 
     tabText = new QStackedWidget();
     tabText->setWindowTitle("Text");
@@ -125,7 +125,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() {
     levelModel.reset();
-    view2D.reset();
+    viewGraphic.reset();
     viewText.reset();
     pController.reset();
     pEnemyControllers.clear();
@@ -135,8 +135,8 @@ void MainWindow::worldInit() {
     // For restart, check if the model and views are deleted
     if (levelModel)
         levelModel.reset();
-    if (view2D)
-        view2D.reset();
+    if (viewGraphic)
+        viewGraphic.reset();
     if (viewText)
         viewText.reset();
     if (pController)
@@ -157,30 +157,30 @@ void MainWindow::worldInit() {
     // Create a ProtagonistModel object with some parameters.
     const std::unique_ptr <ProtagonistModel> &protag = gameModel->getProtagonist();
 
-    // Calculate the size of the tiles based on the height of the gView2D widget.
-    int size = tab2D->size().height() / gameModel->getCols();
+    // Calculate the size of the tiles based on the height of the gViewGraphic widget.
+    int size = tabGraphic->size().height() / gameModel->getCols();
 
     // Adjust the widget size if it's smaller than the number of columns.
-    if (tab2D->size().height() <= gameModel->getCols()) {
+    if (tabGraphic->size().height() <= gameModel->getCols()) {
         size = 1;
-        tab2D->setFixedSize(gameModel->getCols(), gameModel->getRows());
+        tabGraphic->setFixedSize(gameModel->getCols(), gameModel->getRows());
     }
 
-    // Create a View2D object using the GameModel and tile size.
-    if (view2D) {
-        tab2D->removeWidget(view2D.get());
+    // Create a ViewGraphic object using the GameModel and tile size.
+    if (viewGraphic) {
+        tabGraphic->removeWidget(viewGraphic.get());
     }
-    view2D.reset(new View2D(gameModel.get(), size));
+    viewGraphic.reset(new ViewGraphic(gameModel.get(), size));
 
-    // Add a 2D view tab to the tabWidget.
-    tab2D->addWidget(view2D.get());
+    // Add a Graphic view tab to the tabWidget.
+    tabGraphic->addWidget(viewGraphic.get());
 
-    // Set the background for the View2D using the gameModel's background image.
+    // Set the background for the ViewGraphic using the gameModel's background image.
     QPixmap bgScaled = gameModel->getBackground()
-            ->scaled(gameModel->getCols() * view2D->getTileSize(),
-                     gameModel->getRows() * view2D->getTileSize());
-    auto bg = view2D->getScene()->addPixmap(bgScaled);
-    view2D->setBackgroundBrush(QBrush(bg->pixmap()));
+            ->scaled(gameModel->getCols() * viewGraphic->getTileSize(),
+                     gameModel->getRows() * viewGraphic->getTileSize());
+    auto bg = viewGraphic->getScene()->addPixmap(bgScaled);
+    viewGraphic->setBackgroundBrush(QBrush(bg->pixmap()));
     if (viewText) {
         tabText->removeWidget(viewText.get());
     }
@@ -203,17 +203,17 @@ void MainWindow::worldInit() {
     // Connect the commandEntered signal from the view to the handleCommandEntered slot.
     pController.reset(new ProtagonistController(gameModel.get(), protag));
 
-    connect(view2D.get(), SIGNAL(keyPressed(int)), pController.get(), SLOT(handleKeyPress(int)));
+    connect(viewGraphic.get(), SIGNAL(keyPressed(int)), pController.get(), SLOT(handleKeyPress(int)));
     connect(commandTextEdit, SIGNAL(enterKeyPressed(QString)), pController.get(), SLOT(handleCommand(QString)));
     connect(autoplayBtn, &QPushButton::clicked, pController.get(), &ProtagonistController::autoPlay);
-    connect(view2D.get(), &View2D::tileClicked, pController.get(), &ProtagonistController::handleTileClick);
+    connect(viewGraphic.get(), &ViewGraphic::tileClicked, pController.get(), &ProtagonistController::handleTileClick);
     // connect the slider to the protagController
     connect(difficultySlider, SIGNAL(sliderDragged(int)), pController.get(), SLOT(updateDifficulty(int)));
 
     // marking the path
-    connect(pController.get(), &ProtagonistController::tileVisited, view2D.get(), &View2D::markVisited);
+    connect(pController.get(), &ProtagonistController::tileVisited, viewGraphic.get(), &ViewGraphic::markVisited);
     connect(pController.get(), &ProtagonistController::tileVisited, viewText.get(), &ViewText::markVisited);
-    connect(pController.get(), &ProtagonistController::tileCleaned, view2D.get(), &View2D::cleanupMarkedTiles);
+    connect(pController.get(), &ProtagonistController::tileCleaned, viewGraphic.get(), &ViewGraphic::cleanupMarkedTiles);
     connect(pController.get(), &ProtagonistController::tileCleaned, viewText.get(), &ViewText::cleanupMarkedTiles);
     // game over logic
     connect(pController.get(), &ProtagonistController::protagDead, this, &MainWindow::checkGameOver);
@@ -232,7 +232,7 @@ void MainWindow::worldInit() {
         }
     }
     this->update();
-    view2D->setFocus();
+    viewGraphic->setFocus();
     qDebug() << "World initialized and updated!";
 }
 
@@ -255,23 +255,23 @@ void MainWindow::onLevelChanged(int preIndex) {
     qDebug() << "LevelChanged, world updating...";
     const std::unique_ptr <GameModel> &currModel = levelModel->getCurrentModel();
 
-    // Calculate the size of the tiles based on the height of the gView2D widget.
-    int size = tab2D->size().height() / currModel->getCols();
+    // Calculate the size of the tiles based on the height of the gViewGraphic widget.
+    int size = tabGraphic->size().height() / currModel->getCols();
 
     // Adjust the widget size if it's smaller than the number of columns.
-    if (tab2D->size().height() <= currModel->getCols()) {
+    if (tabGraphic->size().height() <= currModel->getCols()) {
         size = 1;
-        tab2D->setFixedSize(currModel->getCols(), currModel->getRows());
+        tabGraphic->setFixedSize(currModel->getCols(), currModel->getRows());
     }
 
-    // Create a View2D object using the GameModel and tile size.
-    if (view2D) {
-        tab2D->removeWidget(view2D.get());
+    // Create a ViewGraphic object using the GameModel and tile size.
+    if (viewGraphic) {
+        tabGraphic->removeWidget(viewGraphic.get());
     }
-    view2D.reset(new View2D(currModel.get(), size));
+    viewGraphic.reset(new ViewGraphic(currModel.get(), size));
 
-    // Add a 2D view tab to the tabWidget.
-    tab2D->addWidget(view2D.get());
+    // Add a Graphic view tab to the tabWidget.
+    tabGraphic->addWidget(viewGraphic.get());
 
     if (viewText) {
         tabText->removeWidget(viewText.get());
@@ -297,7 +297,7 @@ void MainWindow::onLevelChanged(int preIndex) {
     const std::unique_ptr <ProtagonistModel> &protag = currModel->getProtagonist();
 
     pController.reset(new ProtagonistController(currModel.get(), protag));
-    connect(view2D.get(), SIGNAL(keyPressed(int)), pController.get(), SLOT(handleKeyPress(int)));
+    connect(viewGraphic.get(), SIGNAL(keyPressed(int)), pController.get(), SLOT(handleKeyPress(int)));
     connect(commandTextEdit, SIGNAL(enterKeyPressed(QString)), pController.get(), SLOT(handleCommand(QString)));
     bool success_auto = connect(autoplayBtn, &QPushButton::clicked, pController.get(),
                                 &ProtagonistController::autoPlay);
@@ -307,7 +307,7 @@ void MainWindow::onLevelChanged(int preIndex) {
         qDebug() << "Autplay connection failed";
     } else
         qDebug() << "Autoplay connection successful";
-    bool success = connect(view2D.get(), &View2D::tileClicked, pController.get(),
+    bool success = connect(viewGraphic.get(), &ViewGraphic::tileClicked, pController.get(),
                            &ProtagonistController::handleTileClick);
     if (!success) {
         qDebug() << "Click move connection failed";
@@ -315,7 +315,7 @@ void MainWindow::onLevelChanged(int preIndex) {
         qDebug() << "Click move connection successful";
 
     // marking the path
-    connect(pController.get(), &ProtagonistController::tileVisited, view2D.get(), &View2D::markVisited);
+    connect(pController.get(), &ProtagonistController::tileVisited, viewGraphic.get(), &ViewGraphic::markVisited);
     connect(pController.get(), &ProtagonistController::tileVisited, viewText.get(), &ViewText::markVisited);
 
     // game over logic
@@ -333,7 +333,7 @@ void MainWindow::onLevelChanged(int preIndex) {
         }
     }
     this->update();
-    view2D->setFocus();
+    viewGraphic->setFocus();
     qDebug() << "World updated based on level!";
 }
 
