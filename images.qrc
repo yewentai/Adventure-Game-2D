@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>src/world_images/maze1.png</file>
+        <file>src/world_images/maze2.png</file>
+        <file>src/world_images/maze3.png</file>
+        <file>src/world_images/worldmap.png</file>
+        <file>src/world_images/worldmap4.png</file>
+        <file>src/tile_images/heal.png</file>
+        <file>src/tile_images/hp.png</file>
+        <file>src/tile_images/p_alive.png</file>
+        <file>src/tile_images/p_dead.png</file>
+        <file>src/tile_images/player1.png</file>
+        <file>src/tile_images/player2.png</file>
+        <file>src/tile_images/x_alive.png</file>
+        <file>src/tile_images/x_dead.png</file>
+        <file>src/tile_images/brick.png</file>
+        <file>src/tile_images/grassbrick.png</file>
+        <file>src/tile_images/grassflower.png</file>
+        <file>src/tile_images/yellowgrass.png</file>
+        <file>src/tile_images/pool.png</file>
+        <file>src/tile_images/lightgrass.png</file>
+        <file>src/tile_images/road.png</file>
+        <file>src/tile_images/greengrass.png</file>
+        <file>src/tile_images/poison.png</file>
+        <file>src/tile_images/poisoned.png</file>
+        <file>src/tile_images/marked.png</file>
+        <file>src/tile_images/gate.png</file>
+        <file>src/world_images/worldmap1.png</file>
+        <file>src/tile_images/enemy.png</file>
+        <file>src/tile_images/enemy_dead.png</file>
+        <file>src/world_images/worldmap2.png</file>
+    </qresource>
+</RCC>
