@@ -24,19 +24,21 @@
 #include "controllers/protagonist_control.h"
 
 // Define a class called View2D that inherits from QGraphicsView
-class View2D : public QGraphicsView
-{
+class View2D : public QGraphicsView {
     Q_OBJECT
 
 public:
     // Constructor for the View2D class, takes a GameModel pointer and an integer size as parameters
-    View2D(GameModel *model, int size, int bgSkin=1 );
+    View2D(GameModel *model, int size, int bgSkin = 1);
+
     QGraphicsScene *scene; // Pointer to the QGraphicsScene
-    virtual ~View2D(){};   // Virtual destructor
+    virtual ~View2D() {};   // Virtual destructor
 
     // Zoom in or out by changing the size of tiles
     int getTileSize() const;
+
     void markVisited(int x, int y);
+
     void cleanupMarkedTiles();
 
     QGraphicsScene *getScene() const;
@@ -44,17 +46,23 @@ public:
 private:
     int size{1};                                           // Size of tiles
     float zoomFactor{1.0f};                                // Zoom factor
-    QMap<QPair<int, int>, MarkedTileView2D *> markedTiles; // Map to store marked tile instances
+    QMap<QPair < int, int>, MarkedTileView2D *>
+    markedTiles; // Map to store marked tile instances
     // Override keyPressEvent to handle key events
     void keyPressEvent(QKeyEvent *event) override;
+
     void mousePressEvent(QMouseEvent *event) override;
+
     // Override wheelEvent to handle wheel events
     void wheelEvent(QWheelEvent *event) override;
 
-signals:
-    void keyPressed(int key); // Signal emitted when a key is pressed
+    signals:
+            void keyPressed(int
+    key); // Signal emitted when a key is pressed
     void tileClicked(int x, int y);
-public slots:
+
+public
+    slots:
 };
 
 #endif // GRAPHIC_H

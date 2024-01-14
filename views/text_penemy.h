@@ -5,14 +5,12 @@
 #include <QImage>
 #include "views/text_enemy.h"
 
-class PEnemyViewText : public EnemyViewText
-{
+class PEnemyViewText : public EnemyViewText {
     Q_OBJECT
 
 public:
     PEnemyViewText(int size, int xPos, int yPos)
-        : EnemyViewText(size, xPos, yPos)
-    {
+            : EnemyViewText(size, xPos, yPos) {
         this->setPlainText(QString("P"));
         this->setZValue(2);
     };
@@ -22,8 +20,10 @@ private:
     int poisonIndex{0};
     int poisonRange{3};
 
-public slots:
-    inline void handlePoisonLevelUpdated(int value){};
+public
+    slots:
+
+    inline void handlePoisonLevelUpdated(int value) {};
 };
 
 #endif // TEXT_PENEMY_H

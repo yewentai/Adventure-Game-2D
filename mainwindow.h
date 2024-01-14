@@ -34,14 +34,12 @@
 #include "views/game_over.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui
-{
+namespace Ui {
     class MainWindow;
 }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -63,16 +61,23 @@ public:
 protected:
     // bool eventFilter(QObject *obj, QEvent *event);
 
-signals:
-    void commandEntered(const QString &command);
+    signals:
+            void commandEntered(
+    const QString &command
+    );
 
 protected:
     // bool eventFilter(QObject *obj, QEvent *event);
 
-public slots:
-    void onTabChanged(int index);
+public
+    slots:
+            void onTabChanged(int
+    index);
+
     void onRestartButtonClicked();
+
     void onLevelChanged(int preIndex);
+
     void checkGameOver();
 
 private:
@@ -91,14 +96,14 @@ private:
     QProgressBar *healthBar;
     QProgressBar *energyBar;
     // std::unique_ptr<GameModel> gameModel;
-    std::unique_ptr<LevelController> levelModel = nullptr;
+    std::unique_ptr <LevelController> levelModel = nullptr;
     MySlider *difficultySlider;
-    std::unique_ptr<GameModel> gameModel = nullptr;
-    std::unique_ptr<View2D> view2D = nullptr;
-    std::unique_ptr<ViewText> viewText = nullptr;
-    std::unique_ptr<ProtagonistController> pController = nullptr;
+    std::unique_ptr <GameModel> gameModel = nullptr;
+    std::unique_ptr <View2D> view2D = nullptr;
+    std::unique_ptr <ViewText> viewText = nullptr;
+    std::unique_ptr <ProtagonistController> pController = nullptr;
     QPushButton *autoplayBtn;
-    std::vector<std::unique_ptr<PEnemyController>> pEnemyControllers;
+    std::vector <std::unique_ptr<PEnemyController>> pEnemyControllers;
     GameOverDialog *gameOverDialog;
     // QWidget* gameOverScreen;
     QLabel *healthLabel;

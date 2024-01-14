@@ -6,17 +6,16 @@
 #include <QGraphicsScale>
 #include "views/graphic_tile.h"
 
-class MarkedTileView2D : public TileView2D
-{
+class MarkedTileView2D : public TileView2D {
     Q_OBJECT
 
 public:
     MarkedTileView2D(int size, int xPos, int yPos, QObject *parent = nullptr)
-        : TileView2D(size, xPos, yPos)
-    {
+            : TileView2D(size, xPos, yPos) {
         this->setParent(parent);
         this->setPixmap(QPixmap(":/src/tile_images/marked.png").scaled(size, size)); // Path to the marked tile image
-        this->setZValue(4);                                                          // Ensure it's rendered above the base tile
+        this->setZValue(
+                4);                                                          // Ensure it's rendered above the base tile
 
         // Initialize the scale transformation
         scaleTransform = new QGraphicsScale(this);

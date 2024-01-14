@@ -22,8 +22,7 @@
 #include "text_markedtile.h"
 
 // Define a class called ViewText that inherits from QGraphicsView
-class ViewText : public QGraphicsView
-{
+class ViewText : public QGraphicsView {
     Q_OBJECT
 
 public:
@@ -31,22 +30,26 @@ public:
     ViewText(GameModel *model, int size);
 
     QGraphicsScene *scene; // Pointer to the QGraphicsScene
-    virtual ~ViewText(){}; // Virtual destructor
+    virtual ~ViewText() {}; // Virtual destructor
 
     // Zoom in or out by changing the size of tiles
     void zoom(int newSize);
+
     void markVisited(int x, int y);
+
     void cleanupMarkedTiles();
 
 private:
     int size{1};                                         // Size of tiles
     float zoomFactor{1.0f};                              // Zoom factor
-    QMap<QPair<int, int>, TextMarkedTile *> markedTiles; // Map to store marked tile instances
+    QMap<QPair < int, int>, TextMarkedTile *>
+    markedTiles; // Map to store marked tile instances
 
     // Override wheelEvent to handle wheel events
     void wheelEvent(QWheelEvent *event) override;
 
-public slots:
+public
+    slots:
 };
 
 #endif // TEXDT_H

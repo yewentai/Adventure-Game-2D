@@ -5,14 +5,12 @@
 #include <QImage>
 #include "views/graphic_tile.h"
 
-class EnemyView2D : public TileView2D
-{
+class EnemyView2D : public TileView2D {
     Q_OBJECT
 
 public:
     // Constructor for the EnemyView2D class
-    EnemyView2D(int size, int xPos, int yPos) : TileView2D(size, xPos, yPos)
-    {
+    EnemyView2D(int size, int xPos, int yPos) : TileView2D(size, xPos, yPos) {
         this->viewAlive = new QPixmap(QString(":/src/tile_images/enemy.png"));
         this->viewDead = new QPixmap(QString(":/src/tile_images/enemy_dead.png"));
         this->setPixmap(viewAlive->scaled(size, size));
@@ -20,8 +18,7 @@ public:
     };
 
     // Destructor for the EnemyView2D class
-    ~EnemyView2D()
-    {
+    ~EnemyView2D() {
         delete viewAlive;
         delete viewDead;
     };
@@ -31,10 +28,11 @@ protected:
     QPixmap *viewAlive; // Pixmap for the alive enemy view
     QPixmap *viewDead;  // Pixmap for the dead enemy view
 
-public slots:
+public
+    slots:
+
     // Handle the event when the enemy is defeated
-    inline void handleDead()
-    {
+    inline void handleDead() {
         dead = true;
         this->setPixmap(viewDead->scaled(size, size));
     }

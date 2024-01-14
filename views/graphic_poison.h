@@ -6,14 +6,12 @@
 #include <QGraphicsScale>
 #include "views/graphic_tile.h"
 
-class PoisonView2D : public TileView2D
-{
+class PoisonView2D : public TileView2D {
     Q_OBJECT
 
 public:
     PoisonView2D(int size, int xPos, int yPos, QObject *parent = nullptr)
-        : TileView2D(size, xPos, yPos)
-    {
+            : TileView2D(size, xPos, yPos) {
         this->setParent(parent);
         this->setPixmap(QPixmap(":/src/tile_images/poisoned.png").scaled(size, size));
         this->setZValue(4);
@@ -33,8 +31,7 @@ private:
     QGraphicsScale *scaleTransform;
 };
 
-inline QGraphicsScale *PoisonView2D::getScaleTransform() const
-{
+inline QGraphicsScale *PoisonView2D::getScaleTransform() const {
     return scaleTransform;
 }
 

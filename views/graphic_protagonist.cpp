@@ -1,9 +1,8 @@
 #include "graphic_protagonist.h"
 
 ProtagonistView2D::ProtagonistView2D(int size, int xPos, int yPos)
-    : TileView2D(size, xPos, yPos),
-      viewAlive(new QPixmap(QString(":/src/tile_images/player1.png")))
-{
+        : TileView2D(size, xPos, yPos),
+          viewAlive(new QPixmap(QString(":/src/tile_images/player1.png"))) {
     // Set up the protagonist view
     this->setPixmap(viewAlive->scaled(size, size));
     this->setZValue(5);
@@ -31,13 +30,11 @@ ProtagonistView2D::ProtagonistView2D(int size, int xPos, int yPos)
     poisonedAnimationY->setLoopCount(-1);
 }
 
-void ProtagonistView2D::handlePosChanged(int x, int y)
-{
+void ProtagonistView2D::handlePosChanged(int x, int y) {
     this->setPos(x * size, y * size);
 }
 
-void ProtagonistView2D::handlePoioned()
-{
+void ProtagonistView2D::handlePoioned() {
     viewPoisoned->setParentItem(this);
     viewPoisoned->setVisible(true);
     // Start the animations
@@ -45,8 +42,7 @@ void ProtagonistView2D::handlePoioned()
     poisonedAnimationY->start();
 }
 
-void ProtagonistView2D::handleRecovered()
-{
+void ProtagonistView2D::handleRecovered() {
     // Stop the animations
     poisonedAnimationX->stop();
     poisonedAnimationY->stop();

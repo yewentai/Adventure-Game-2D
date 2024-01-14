@@ -7,13 +7,11 @@
 #include <QVBoxLayout>
 #include <QDebug>
 
-class GameOverDialog : public QDialog
-{
+class GameOverDialog : public QDialog {
     Q_OBJECT
 
 public:
-    explicit GameOverDialog(QWidget *parent = nullptr) : QDialog(parent)
-    {
+    explicit GameOverDialog(QWidget *parent = nullptr) : QDialog(parent) {
         setWindowTitle("Game Over");
         QVBoxLayout *layout = new QVBoxLayout(this);
 
@@ -29,12 +27,13 @@ public:
         // connect(restartButton, &QPushButton::clicked, this, &GameOverDialog::close);
     }
 
-signals:
-    void restartGame();
+    signals:
+            void restartGame();
 
-private slots:
-    void onRestartClicked()
-    {
+private
+
+    slots :
+    void onRestartClicked() {
         this->deleteLater();
         this->close();
         emit restartGame();

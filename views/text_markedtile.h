@@ -5,11 +5,10 @@
 #include <QFont>
 #include <QBrush>
 
-class TextMarkedTile : public TileViewText
-{
+class TextMarkedTile : public TileViewText {
 public:
     TextMarkedTile(int size, int xPos, int yPos)
-        : TileViewText(size, xPos, yPos) // Call the constructor of the base class
+            : TileViewText(size, xPos, yPos) // Call the constructor of the base class
     {
         setPlainText("X");                        // Set the text to 'X'
         setDefaultTextColor(Qt::red);             // Set the color to red

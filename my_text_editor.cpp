@@ -2,8 +2,7 @@
 #include <QKeyEvent>
 #include <QDebug>
 
-void MyTextEditor::setCompletedCommand(const QString &command)
-{
+void MyTextEditor::setCompletedCommand(const QString &command) {
     this->setPlainText(command);
     this->moveCursor(QTextCursor::End); // Move cursor to end of text
 }

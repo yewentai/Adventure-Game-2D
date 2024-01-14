@@ -4,8 +4,7 @@
 #include <QObject>
 #include "models/game.h"
 
-class PEnemyController : public QObject
-{
+class PEnemyController : public QObject {
     Q_OBJECT
 public:
     PEnemyController(PEnemyModel *pEnemy);
@@ -13,12 +12,14 @@ public:
 private:
     PEnemyModel *pEnemyModel;
 
-public slots:
-    void handleDead();
+public
+    slots:
+            void handleDead();
+
     void handlePoisonLevelUpdated(int value);
 
-signals:
-    void startPoison();
+    signals:
+            void startPoison();
 };
 
 #endif // PENEMY_CONTROL_H

@@ -1,10 +1,10 @@
 #ifndef TILEADAPTER_H
 #define TILEADAPTER_H
+
 #include <iostream>
 #include "lib/world.h"
 
-class TileAdapter
-{
+class TileAdapter {
 public:
     Tile *tile; // Reference to the actual Tile
     float f, g, h;
@@ -15,7 +15,9 @@ public:
 
     // Delegate methods to the Tile
     int getXPos() const { return tile->getXPos(); }
+
     int getYPos() const { return tile->getYPos(); }
+
     float getValue() const { return tile->getValue(); }
 };
 

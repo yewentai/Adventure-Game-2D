@@ -2,8 +2,7 @@
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-{
+        : QMainWindow(parent) {
     // Main window settings
     this->setWindowTitle("MainWindow");
     this->resize(837, 593);
@@ -95,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent)
                                          "5. goto 2,2\n"
                                          "6. attack\n"
                                          "7. heal\n"
-                                         );
+    );
     // Set the Browser's size to fit the text
     commandExamplesBrowser->setFixedSize(90, 155);
 
@@ -124,8 +123,7 @@ MainWindow::MainWindow(QWidget *parent)
     worldInit();
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     levelModel.reset();
     view2D.reset();
     viewText.reset();
@@ -133,8 +131,7 @@ MainWindow::~MainWindow()
     pEnemyControllers.clear();
 }
 
-void MainWindow::worldInit()
-{
+void MainWindow::worldInit() {
     // For restart, check if the model and views are deleted
     if (levelModel)
         levelModel.reset();
@@ -154,25 +151,23 @@ void MainWindow::worldInit()
 
     // Create a levelModel that contains and manages the gameModels
     levelModel.reset(new LevelController());
-    const std::unique_ptr<GameModel> &gameModel = levelModel->getCurrentModel();
+    const std::unique_ptr <GameModel> &gameModel = levelModel->getCurrentModel();
     connect(levelModel.get(), SIGNAL(levelUpdated(int)), this, SLOT(onLevelChanged(int)));
 
     // Create a ProtagonistModel object with some parameters.
-    const std::unique_ptr<ProtagonistModel> &protag = gameModel->getProtagonist();
+    const std::unique_ptr <ProtagonistModel> &protag = gameModel->getProtagonist();
 
     // Calculate the size of the tiles based on the height of the gView2D widget.
     int size = tab2D->size().height() / gameModel->getCols();
 
     // Adjust the widget size if it's smaller than the number of columns.
-    if (tab2D->size().height() <= gameModel->getCols())
-    {
+    if (tab2D->size().height() <= gameModel->getCols()) {
         size = 1;
         tab2D->setFixedSize(gameModel->getCols(), gameModel->getRows());
     }
 
     // Create a View2D object using the GameModel and tile size.
-    if (view2D)
-    {
+    if (view2D) {
         tab2D->removeWidget(view2D.get());
     }
     view2D.reset(new View2D(gameModel.get(), size));
@@ -182,12 +177,11 @@ void MainWindow::worldInit()
 
     // Set the background for the View2D using the gameModel's background image.
     QPixmap bgScaled = gameModel->getBackground()
-                           ->scaled(gameModel->getCols() * view2D->getTileSize(),
-                                    gameModel->getRows() * view2D->getTileSize());
+            ->scaled(gameModel->getCols() * view2D->getTileSize(),
+                     gameModel->getRows() * view2D->getTileSize());
     auto bg = view2D->getScene()->addPixmap(bgScaled);
     view2D->setBackgroundBrush(QBrush(bg->pixmap()));
-    if (viewText)
-    {
+    if (viewText) {
         tabText->removeWidget(viewText.get());
     }
     // Create a ViewText object using the GameModel and tile size.
@@ -229,14 +223,11 @@ void MainWindow::worldInit()
     connect(pController.get(), SIGNAL(commandToComplete(QString)), commandTextEdit, SLOT(setCompletedCommand(QString)));
 
     // Connect the PEnemy model view and controller
-    for (const auto &enemy : gameModel->getEnemies())
-    {
-        if (dynamic_cast<PEnemyModel *>(enemy.get()))
-        {
+    for (const auto &enemy: gameModel->getEnemies()) {
+        if (dynamic_cast<PEnemyModel *>(enemy.get())) {
             pEnemyControllers.emplace_back(new PEnemyController(dynamic_cast<PEnemyModel *>(enemy.get())));
         }
-        if (dynamic_cast<XEnemy *>(enemy.get()))
-        {
+        if (dynamic_cast<XEnemy *>(enemy.get())) {
             connect(dynamic_cast<XEnemy *>(enemy.get()), SIGNAL(bounce()), pController.get(), SLOT(handleBounce()));
         }
     }
@@ -245,8 +236,7 @@ void MainWindow::worldInit()
     qDebug() << "World initialized and updated!";
 }
 
-void MainWindow::onTabChanged(int index)
-{
+void MainWindow::onTabChanged(int index) {
     // Assuming the "Text" tab is the second tab (index 1)
     currentTab = index;
     bool isTextTabSelected = (index == 1);
@@ -255,31 +245,27 @@ void MainWindow::onTabChanged(int index)
     commandTextEdit->setVisible(isTextTabSelected);
 }
 
-void MainWindow::onRestartButtonClicked()
-{
+void MainWindow::onRestartButtonClicked() {
     // gameOverScreen->setVisible(false);
     gameOver = false;
     worldInit();
 }
 
-void MainWindow::onLevelChanged(int preIndex)
-{
+void MainWindow::onLevelChanged(int preIndex) {
     qDebug() << "LevelChanged, world updating...";
-    const std::unique_ptr<GameModel> &currModel = levelModel->getCurrentModel();
+    const std::unique_ptr <GameModel> &currModel = levelModel->getCurrentModel();
 
     // Calculate the size of the tiles based on the height of the gView2D widget.
     int size = tab2D->size().height() / currModel->getCols();
 
     // Adjust the widget size if it's smaller than the number of columns.
-    if (tab2D->size().height() <= currModel->getCols())
-    {
+    if (tab2D->size().height() <= currModel->getCols()) {
         size = 1;
         tab2D->setFixedSize(currModel->getCols(), currModel->getRows());
     }
 
     // Create a View2D object using the GameModel and tile size.
-    if (view2D)
-    {
+    if (view2D) {
         tab2D->removeWidget(view2D.get());
     }
     view2D.reset(new View2D(currModel.get(), size));
@@ -287,8 +273,7 @@ void MainWindow::onLevelChanged(int preIndex)
     // Add a 2D view tab to the tabWidget.
     tab2D->addWidget(view2D.get());
 
-    if (viewText)
-    {
+    if (viewText) {
         tabText->removeWidget(viewText.get());
     }
     // Create a ViewText object using the GameModel and tile size.
@@ -309,26 +294,24 @@ void MainWindow::onLevelChanged(int preIndex)
 
     // Connect the commandEntered signal from the view to the handleCommandEntered slot.
     // Create a ProtagonistModel object with some parameters.
-    const std::unique_ptr<ProtagonistModel> &protag = currModel->getProtagonist();
+    const std::unique_ptr <ProtagonistModel> &protag = currModel->getProtagonist();
 
     pController.reset(new ProtagonistController(currModel.get(), protag));
     connect(view2D.get(), SIGNAL(keyPressed(int)), pController.get(), SLOT(handleKeyPress(int)));
     connect(commandTextEdit, SIGNAL(enterKeyPressed(QString)), pController.get(), SLOT(handleCommand(QString)));
-    bool success_auto = connect(autoplayBtn, &QPushButton::clicked, pController.get(), &ProtagonistController::autoPlay);
+    bool success_auto = connect(autoplayBtn, &QPushButton::clicked, pController.get(),
+                                &ProtagonistController::autoPlay);
 
     qDebug() << success_auto;
-    if (!success_auto)
-    {
+    if (!success_auto) {
         qDebug() << "Autplay connection failed";
-    }
-    else
+    } else
         qDebug() << "Autoplay connection successful";
-    bool success = connect(view2D.get(), &View2D::tileClicked, pController.get(), &ProtagonistController::handleTileClick);
-    if (!success)
-    {
+    bool success = connect(view2D.get(), &View2D::tileClicked, pController.get(),
+                           &ProtagonistController::handleTileClick);
+    if (!success) {
         qDebug() << "Click move connection failed";
-    }
-    else
+    } else
         qDebug() << "Click move connection successful";
 
     // marking the path
@@ -344,10 +327,8 @@ void MainWindow::onLevelChanged(int preIndex)
 
     // Connect the PEnemy model view and controller
     pEnemyControllers.clear();
-    for (const auto &enemy : currModel->getEnemies())
-    {
-        if (dynamic_cast<PEnemyModel *>(enemy.get()))
-        {
+    for (const auto &enemy: currModel->getEnemies()) {
+        if (dynamic_cast<PEnemyModel *>(enemy.get())) {
             pEnemyControllers.emplace_back(new PEnemyController(dynamic_cast<PEnemyModel *>(enemy.get())));
         }
     }
@@ -356,10 +337,8 @@ void MainWindow::onLevelChanged(int preIndex)
     qDebug() << "World updated based on level!";
 }
 
-void MainWindow::checkGameOver()
-{
-    if (!gameOver)
-    {
+void MainWindow::checkGameOver() {
+    if (!gameOver) {
         gameOver = true;
         gameOverDialog = new GameOverDialog();
         gameOverDialog->setVisible(true);

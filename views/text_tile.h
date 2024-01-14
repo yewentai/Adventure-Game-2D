@@ -4,17 +4,15 @@
 #include <QObject>
 #include <QGraphicsTextItem>
 
-class TileViewText : public QGraphicsTextItem
-{
+class TileViewText : public QGraphicsTextItem {
     Q_OBJECT
 
 public:
     // Constructor for the TileViewText class
     TileViewText(int size, int xPos, int yPos)
-        : size(size),
-          xPos(xPos),
-          yPos(yPos)
-    {
+            : size(size),
+              xPos(xPos),
+              yPos(yPos) {
         // Set the position offset based on the tile size and coordinates
         this->setPos(xPos * size, yPos * size);
     };

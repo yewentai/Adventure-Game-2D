@@ -4,14 +4,12 @@
 #include <QObject>
 #include "views/text_tile.h"
 
-class EnemyViewText : public TileViewText
-{
+class EnemyViewText : public TileViewText {
     Q_OBJECT
 
 public:
     // Constructor for the EnemyViewText class
-    EnemyViewText(int size, int xPos, int yPos) : TileViewText(size, xPos, yPos)
-    {
+    EnemyViewText(int size, int xPos, int yPos) : TileViewText(size, xPos, yPos) {
         this->setPlainText(QString("E"));
         this->setZValue(2);
     };
@@ -19,10 +17,11 @@ public:
     // Set the status of the enemy (alive or dead)
     void setIsDead(bool newIsDead);
 
-public slots:
+public
+    slots:
+
     // Handle the event when the enemy is defeated
-    inline void handleDead()
-    {
+    inline void handleDead() {
         dead = true;
         this->setPlainText(QString(" "));
     };

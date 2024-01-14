@@ -1,25 +1,19 @@
 #include "protagonist.h"
 
 ProtagonistModel::ProtagonistModel()
-    : Protagonist()
-{
+        : Protagonist() {
 }
 
-bool ProtagonistModel::getIsPoisoned() const
-{
+bool ProtagonistModel::getIsPoisoned() const {
     return isPoisoned;
 }
 
-void ProtagonistModel::setIsPoisoned(bool newIsPoisoned)
-{
+void ProtagonistModel::setIsPoisoned(bool newIsPoisoned) {
     isPoisoned = newIsPoisoned;
 
-    if (newIsPoisoned)
-    {
+    if (newIsPoisoned) {
         emit protagPoisoned();
-    }
-    else
-    {
+    } else {
         emit protagRecovered();
     }
 }

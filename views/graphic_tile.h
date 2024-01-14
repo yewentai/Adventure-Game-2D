@@ -3,17 +3,15 @@
 
 #include <QGraphicsPixmapItem>
 
-class TileView2D : public QObject, public QGraphicsPixmapItem
-{
+class TileView2D : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 
 public:
     // Constructor for the TileView2D class
     TileView2D(int size, int xPos, int yPos)
-        : size(size),
-          xPos(xPos),
-          yPos(yPos)
-    {
+            : size(size),
+              xPos(xPos),
+              yPos(yPos) {
         // Set the position offset based on the tile size and coordinates
         this->setPos(xPos * size, yPos * size);
     };

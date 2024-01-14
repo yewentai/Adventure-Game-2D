@@ -3,15 +3,13 @@
 
 #include "views/text_tile.h"
 
-class ProtagonistViewText : public TileViewText
-{
+class ProtagonistViewText : public TileViewText {
     Q_OBJECT
 
 public:
     // Constructor for the ProtagonistViewText class
     ProtagonistViewText(int size, int xPos, int yPos)
-        : TileViewText(size, xPos, yPos)
-    {
+            : TileViewText(size, xPos, yPos) {
         this->setPlainText(QString("@")); // Set the pixmap for the protagonist view
         this->setPos(xPos * size, yPos * size);
     };
@@ -19,9 +17,13 @@ public:
 private:
     bool dead{false}; // Flag to track if the protagonist is dead
 
-public slots:
-    // Handle position changes for the protagonist
-    void handlePosChanged(int x, int y)
+public
+    slots:
+            // Handle position changes for the protagonist
+            void handlePosChanged(int
+    x,
+    int y
+    )
     {
         this->setPos(x * size, y * size);
     }

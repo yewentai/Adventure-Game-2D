@@ -1,36 +1,28 @@
 #include "xenemy.h"
 
-XEnemy::XEnemy(int xPosition, int yPosition, float strength) : Enemy(xPosition, yPosition, strength)
-{
+XEnemy::XEnemy(int xPosition, int yPosition, float strength) : Enemy(xPosition, yPosition, strength) {
 }
 
-void XEnemy::setBounceTimes(int value)
-{
+void XEnemy::setBounceTimes(int value) {
     bounceTimes = value;
 }
 
-int XEnemy::getBounceTimes() const
-{
+int XEnemy::getBounceTimes() const {
     return bounceTimes;
 }
 
-std::string XEnemy::serialize()
-{
+std::string XEnemy::serialize() {
     std::stringstream res;
     res << Enemy::serialize() << "," << bounceTimes;
     return res.str();
 }
 
-bool XEnemy::bounceProtagonist()
-{
+bool XEnemy::bounceProtagonist() {
     bounceTimes++;
-    if (bounceTimes < 3)
-    {
+    if (bounceTimes < 3) {
         emit bounce();
         return true;
-    }
-    else
-    {
+    } else {
         setDefeated(true);
         emit dead();
     }

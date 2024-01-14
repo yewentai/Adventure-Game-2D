@@ -6,8 +6,7 @@
 #include "views/graphic_tile.h"
 #include "views/graphic_poison.h"
 
-class ProtagonistView2D : public TileView2D
-{
+class ProtagonistView2D : public TileView2D {
     Q_OBJECT
 
 public:
@@ -24,10 +23,16 @@ private:
     QPropertyAnimation *poisonedAnimationX;
     QPropertyAnimation *poisonedAnimationY;
 
-public slots:
-    // Handle position changes for the protagonist
-    void handlePosChanged(int x, int y);
+public
+    slots:
+            // Handle position changes for the protagonist
+            void handlePosChanged(int
+    x,
+    int y
+    );
+
     void handlePoioned();
+
     void handleRecovered();
 };
 

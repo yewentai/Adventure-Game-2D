@@ -7,37 +7,33 @@
 #include <QObject>
 #include <QDebug>
 
-class MyTextEditor : public QPlainTextEdit
-{
+class MyTextEditor : public QPlainTextEdit {
     Q_OBJECT
 
-signals:
-    void enterKeyPressed(QString);
+            signals:
+            void enterKeyPressed(QString);
+
     void tabKeyPressed(QString);
 
-public slots:
-    void setCompletedCommand(const QString &command);
+public
+    slots:
+            void setCompletedCommand(
+    const QString &command
+    );
 
 public:
     MyTextEditor(QWidget *parent = nullptr)
-        : QPlainTextEdit(parent)
-    {
+            : QPlainTextEdit(parent) {
     }
 
 protected:
-    void keyPressEvent(QKeyEvent *event) override
-    {
-        if (event->key() == Qt::Key_Tab)
-        {
+    void keyPressEvent(QKeyEvent *event) override {
+        if (event->key() == Qt::Key_Tab) {
             emit tabKeyPressed(this->toPlainText());
-        }
-        else if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return)
-        {
+        } else if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) {
             emit enterKeyPressed(this->toPlainText());
             this->clear();
-        }
-        else
-        {
+        } else {
             QPlainTextEdit::keyPressEvent(event);
         }
     }

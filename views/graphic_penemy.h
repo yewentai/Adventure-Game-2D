@@ -9,14 +9,14 @@
 #include <QPropertyAnimation>
 #include "views/graphic_enemy.h"
 
-class PEnemyView2D : public EnemyView2D
-{
+class PEnemyView2D : public EnemyView2D {
     Q_OBJECT
 
 public:
     PEnemyView2D(int size, int xPos, int yPos, int cols, int rows);
 
     QGraphicsItemGroup *getPoisons() const;
+
     void clearPoisons();
 
 private:
@@ -27,8 +27,12 @@ private:
     int cols;
     int rows;
 
-public slots:
-    void handlePoisonUpdated(int range, float poisonLevel);
+public
+    slots:
+            void handlePoisonUpdated(int
+    range,
+    float poisonLevel
+    );
 };
 
 #endif // GRAPHIC_PENEMY_H

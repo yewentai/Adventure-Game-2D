@@ -4,8 +4,7 @@
 #include <QObject>
 #include "models/game.h"
 
-class XEnemyController : public QObject
-{
+class XEnemyController : public QObject {
     Q_OBJECT
 public:
     XEnemyController(XEnemyModel *xEnemy);
@@ -13,8 +12,9 @@ public:
 private:
     XEnemyModel *xEnemyModel;
 
-public slots:
-    void handleDead();
+public
+    slots:
+            void handleDead();
 
-signals:
+    signals:
 };
