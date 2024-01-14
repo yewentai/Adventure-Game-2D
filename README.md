@@ -129,7 +129,7 @@ UML updates every two weeks, included in the main branch.
   - Building up the features and functionalities of 'XEnemy'.
 
 ### Final UML
-![image info](/UML_final.jpg)
+![image info](UML/UML_final.jpg)
 
 ### MVC Architecture
 Implements the Model-View-Controller (MVC) architecture, ensuring separation of game logic, user interface, and user input handling. The MVC architecture is implemented using the following modules and classes:
