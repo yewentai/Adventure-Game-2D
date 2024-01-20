@@ -7,7 +7,8 @@
 #include <sstream>
 #include "lib/world.h"
 
-class XEnemy : public Enemy {
+class XEnemy : public Enemy
+{
     Q_OBJECT
 
 public:
@@ -24,12 +25,12 @@ public:
 private:
     int bounceTimes{0};
 
-    signals:
-            void bounce();
+signals:
+    void bounce();
+    void dead();
 
-public
-    slots:
-            bool bounceProtagonist();
+public slots:
+    bool bounceProtagonist();
 };
 
 #endif // XENEMYMODEL_H
